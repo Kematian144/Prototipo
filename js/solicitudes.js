@@ -68,3 +68,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+const viewButtons = document.querySelectorAll('.btn-view');
+
+viewButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const cells = row.querySelectorAll('td');
+
+        document.getElementById('modalTitle').textContent = 'Ver Solicitud de Viajero';
+        document.getElementById('nombreViajero').value = cells[1].textContent;
+        document.getElementById('pasaporte').value = cells[2].textContent;
+        document.getElementById('horaVisita').value = cells[3].textContent;
+        document.getElementById('ubicacion').value = cells[4].textContent;
+
+        const estadoBadge = cells[5].querySelector('.status-badge');
+        if (estadoBadge.classList.contains('status-pending')) {
+            document.getElementById('estado').value = 'pendiente';
+        } else if (estadoBadge.classList.contains('status-completed')) {
+            document.getElementById('estado').value = 'completado';
+        } else {
+            document.getElementById('estado').value = 'en-proceso';
+        }
+
+        // Deshabilitar todos los campos
+        document.querySelectorAll('#solicitudForm input, #solicitudForm select').forEach(input => {
+            input.disabled = true;
+        });
+
+        // Ocultar el botón guardar
+        document.getElementById('guardarSolicitud').style.display = 'none';
+
+        solicitudModal.classList.add('active');
+    });
+});
+
+// Al cancelar, reactivar campos
+document.getElementById('cancelarSolicitud').addEventListener('click', function() {
+    document.querySelectorAll('#solicitudForm input, #solicitudForm select').forEach(input => {
+        input.disabled = false;
+    });
+    document.getElementById('guardarSolicitud').style.display = 'inline-block';
+});
