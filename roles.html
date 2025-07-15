@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles y Perfiles - Aduana Chilena</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-border-all"></i> Menú Principal</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active" data-page="dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="solicitudes.html" class="nav-item" data-page="solicitudes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Solicitudes de Viajero</span>
+                </a>
+                
+                <a href="impuestos.html" class="nav-item" data-page="impuestos.html">
+                    <i class="fas fa-calculator"></i>
+                    <span>Impuestos Mercadería</span>
+                </a>
+                
+                <a href="efectivo.html" class="nav-item" data-page="efectivo.html">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Control de Efectivo</span>
+                </a>
+                
+                <a href="notas.html" class="nav-item" data-page="notas.html">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notas</span>
+                </a>
+                
+                <a href="roles.html" class="nav-item" data-page="roles.html">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Roles y Perfiles</span>
+                </a>
+                
+                <a href="reportes.html" class="nav-item" data-page="reportes.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="documentos.html" class="nav-item" data-page="documentos.html">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Documentacion</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Roles y Perfiles</h1>
+                
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-avatar"></div>
+                        <span class="user-name"></span>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Salir
+                    </button>
+                </div>
+            </header>
+            
+            <div class="roles-container">
+                <div class="roles-list">
+                    <div class="table-header">
+                        <h2 class="table-title">Listado de Roles</h2>
+                        <div class="table-actions">
+                            <button class="btn btn-primary" id="nuevoRol">
+                                <i class="fas fa-plus"></i>
+                                Nuevo Rol
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <table id="tablaRoles">
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Descripción</th>
+                                <th>Usuarios</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Administrador</td>
+                                <td>Acceso completo al sistema</td>
+                                <td>3</td>
+                                <td>
+                                    <button class="btn-icon btn-view" title="Ver">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon btn-edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Agente</td>
+                                <td>Gestión de solicitudes y cálculos básicos</td>
+                                <td>15</td>
+                                <td>
+                                    <button class="btn-icon btn-view" title="Ver">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon btn-edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Agente PDI</td>
+                                <td>Control de documentación</td>
+                                <td>8</td>
+                                <td>
+                                    <button class="btn-icon btn-view" title="Ver">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon btn-edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Agente SAG</td>
+                                <td>Control de productos agrícolas y animales y efectivo</td>
+                                <td>6</td>
+                                <td>
+                                    <button class="btn-icon btn-view" title="Ver">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon btn-edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="roles-detail">
+                    <div class="detail-header">
+                        <h2>Detalle del Rol: <span id="rolNombre">Administrador</span></h2>
+                        <div class="detail-actions">
+                            <button class="btn btn-primary" id="guardarRol">
+                                <i class="fas fa-save"></i>
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rolDescripcion">Descripción</label>
+                        <textarea id="rolDescripcion" rows="3">Acceso completo al sistema con capacidad para gestionar usuarios, roles, configuraciones y todos los módulos de la aplicación.</textarea>
+                    </div>
+                    
+                    <div class="permisos-section">
+                        <h3>Permisos</h3>
+                        
+                        <div class="permisos-grid">
+                            <div class="permiso-categoria">
+                                <h4><i class="fas fa-users"></i> Usuarios</h4>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoUsuariosVer" checked disabled>
+                                    <label for="permisoUsuariosVer">Ver usuarios</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoUsuariosCrear" checked disabled>
+                                    <label for="permisoUsuariosCrear">Crear usuarios</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoUsuariosEditar" checked disabled>
+                                    <label for="permisoUsuariosEditar">Editar usuarios</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoUsuariosEliminar" checked disabled>
+                                    <label for="permisoUsuariosEliminar">Eliminar usuarios</label>
+                                </div>
+                            </div>
+                            
+                            <div class="permiso-categoria">
+                                <h4><i class="fas fa-user-tag"></i> Roles</h4>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoRolesVer" checked disabled>
+                                    <label for="permisoRolesVer">Ver roles</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoRolesCrear" checked disabled>
+                                    <label for="permisoRolesCrear">Crear roles</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoRolesEditar" checked disabled>
+                                    <label for="permisoRolesEditar">Editar roles</label>
+                                </div>
+                            </div>
+                            
+                            <div class="permiso-categoria">
+                                <h4><i class="fas fa-users"></i> Solicitudes</h4>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoSolicitudesVer" checked disabled>
+                                    <label for="permisoSolicitudesVer">Ver solicitudes</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoSolicitudesCrear" checked disabled>
+                                    <label for="permisoSolicitudesCrear">Crear solicitudes</label>
+                                </div>
+                                <div class="permiso-item">
+                                    <input type="checkbox" id="permisoSolicitudesEditar" checked disabled>
+                                    <label for="permisoSolicitudesEditar">Editar solicitudes</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Más categorías de permisos -->
+                        </div>
+                    </div>
+                    
+                    <div class="usuarios-section">
+                        <h3>Usuarios con este Rol</h3>
+                        <table class="usuarios-table">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th>Último Acceso</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Admin Principal</td>
+                                    <td>admin@aduana.cl</td>
+                                    <td>15/06/2023 10:30</td>
+                                    <td>
+                                        <button class="btn-icon" title="Remover rol">
+                                            <i class="fas fa-user-minus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Supervisor</td>
+                                    <td>supervisor@aduana.cl</td>
+                                    <td>14/06/2023 16:45</td>
+                                    <td>
+                                        <button class="btn-icon" title="Remover rol">
+                                            <i class="fas fa-user-minus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal para nuevo/editar rol -->
+    <div class="modal" id="rolModal">
+        <!-- Similar a otros modales -->
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/roles.js"></script>
+</body>
+</html>

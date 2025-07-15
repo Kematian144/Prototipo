@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Aduana Chilena</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-border-all"></i> Menú Principal</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active" data-page="dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="solicitudes.html" class="nav-item" data-page="solicitudes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Solicitudes de Viajero</span>
+                </a>
+                
+                <a href="impuestos.html" class="nav-item" data-page="impuestos.html">
+                    <i class="fas fa-calculator"></i>
+                    <span>Impuestos Mercadería</span>
+                </a>
+                
+                <a href="efectivo.html" class="nav-item" data-page="efectivo.html">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Control de Efectivo</span>
+                </a>
+                
+                <a href="notas.html" class="nav-item" data-page="notas.html">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notas</span>
+                </a>
+                
+                <a href="roles.html" class="nav-item" data-page="roles.html">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Roles y Perfiles</span>
+                </a>
+                
+                <a href="reportes.html" class="nav-item" data-page="reportes.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="documentos.html" class="nav-item" data-page="documentos.html">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Documentacion</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Reportes</h1>
+                
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-avatar"></div>
+                        <span class="user-name"></span>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Salir
+                    </button>
+                </div>
+            </header>
+            
+            <div class="reports-container">
+                <div class="reports-generator">
+                    <div class="generator-header">
+                        <h2><i class="fas fa-plus-circle"></i> Generar Nuevo Reporte</h2>
+                    </div>
+                    
+                    <div class="generator-body">
+                        <div class="form-group">
+                            <label for="tipoReporte">Tipo de Reporte</label>
+                            <select id="tipoReporte" required>
+                                <option value="">Seleccione un tipo...</option>
+                                <option value="solicitudes">Solicitudes de Viajero</option>
+                                <option value="impuestos">Impuestos Calculados</option>
+                                <option value="efectivo">Control de Efectivo</option>
+                                <option value="notas">Notas Generadas</option>
+                                <option value="actividad">Actividad del Sistema</option>
+                                <option value="personalizado">Personalizado</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fechaInicio">Fecha Inicio</label>
+                                <input type="date" id="fechaInicio">
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaFin">Fecha Fin</label>
+                                <input type="date" id="fechaFin">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="filtroUsuario">Filtrar por Usuario</label>
+                            <select id="filtroUsuario">
+                                <option value="">Todos los usuarios</option>
+                                <option value="admin">Administradores</option>
+                                <option value="agente">Agentes</option>
+                                <option value="agentePDI">Agentes PDI</option>
+                                <option value="agenteSAG">Agentes SAG</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="formatoReporte">Formato de Salida</label>
+                            <select id="formatoReporte">
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="html">HTML</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="generarReporte">
+                            <i class="fas fa-file-export"></i> Generar Reporte
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="reports-history">
+                    <div class="history-header">
+                        <h2><i class="fas fa-history"></i> Historial de Reportes</h2>
+                        <div class="history-actions">
+                            <button class="btn btn-secondary" id="actualizarHistorial">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <table id="tablaReportes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Fecha Generación</th>
+                                <th>Periodo</th>
+                                <th>Generado por</th>
+                                <th>Formato</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#REP-001</td>
+                                <td>Solicitudes de Viajero</td>
+                                <td>14/06/2023 14:30</td>
+                                <td>01/06/2023 - 14/06/2023</td>
+                                <td>admin@aduana.cl</td>
+                                <td>PDF</td>
+                                <td>
+                                    <button class="btn-icon" title="Descargar">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#REP-002</td>
+                                <td>Impuestos Calculados</td>
+                                <td>10/06/2023 11:15</td>
+                                <td>01/06/2023 - 10/06/2023</td>
+                                <td>agente@aduana.cl</td>
+                                <td>Excel</td>
+                                <td>
+                                    <button class="btn-icon" title="Descargar">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#REP-003</td>
+                                <td>Control de Efectivo</td>
+                                <td>05/06/2023 16:45</td>
+                                <td>01/06/2023 - 05/06/2023</td>
+                                <td>agentePDI@aduana.cl</td>
+                                <td>PDF</td>
+                                <td>
+                                    <button class="btn-icon" title="Descargar">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination">
+                        <button class="btn btn-secondary" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-info">Página 1 de 2</span>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/reportes.js"></script>
+</body>
+</html>

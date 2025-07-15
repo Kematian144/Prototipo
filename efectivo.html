@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Efectivo - Aduana Chilena</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-border-all"></i> Menú Principal</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active" data-page="dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="solicitudes.html" class="nav-item" data-page="solicitudes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Solicitudes de Viajero</span>
+                </a>
+                
+                <a href="impuestos.html" class="nav-item" data-page="impuestos.html">
+                    <i class="fas fa-calculator"></i>
+                    <span>Impuestos Mercadería</span>
+                </a>
+                
+                <a href="efectivo.html" class="nav-item" data-page="efectivo.html">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Control de Efectivo</span>
+                </a>
+                
+                <a href="notas.html" class="nav-item" data-page="notas.html">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notas</span>
+                </a>
+                
+                <a href="roles.html" class="nav-item" data-page="roles.html">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Roles y Perfiles</span>
+                </a>
+                
+                <a href="reportes.html" class="nav-item" data-page="reportes.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="documentos.html" class="nav-item" data-page="documentos.html">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Documentacion</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header class="header">
+                <h1>Control de Efectivo</h1>
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-avatar"></div>
+                        <span class="user-name"></span>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </div>
+            </header>
+            
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-money-bill-wave"></i> Registro de Efectivo</h2>
+                </div>
+                
+                <form id="efectivoForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="viajeroNombre">Nombre del Viajero</label>
+                            <input type="text" id="viajeroNombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="viajeroPasaporte">N° Pasaporte</label>
+                            <input type="text" id="viajeroPasaporte" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="moneda">Moneda</label>
+                            <select id="moneda" required>
+                                <option value="">Seleccione...</option>
+                                <option value="clp">Peso Chileno (CLP)</option>
+                                <option value="usd">Dólar Estadounidense (USD)</option>
+                                <option value="eur">Euro (EUR)</option>
+                                <option value="gbp">Libra Esterlina (GBP)</option>
+                                <option value="ars">Peso Argentino (ARS)</option>
+                                <option value="brl">Real Brasileño (BRL)</option>
+                                <option value="otra">Otra Moneda</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="montoDeclarado">Monto Declarado</label>
+                            <input type="number" id="montoDeclarado" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="montoEncontrado">Monto Encontrado</label>
+                            <input type="number" id="montoEncontrado" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diferencia">Diferencia</label>
+                            <input type="text" id="diferencia" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="observacionesEfectivo">Observaciones</label>
+                        <textarea id="observacionesEfectivo" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-broom"></i> Limpiar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="table-container">
+                <div class="table-header">
+                    <h2 class="table-title">Registros de Efectivo</h2>
+                    <div class="table-actions">
+                        <button class="btn btn-primary" id="nuevoRegistro">
+                            <i class="fas fa-plus"></i> Nuevo
+                        </button>
+                        <button class="btn btn-secondary" id="filtrarRegistros">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                        <button class="btn btn-secondary" id="exportarRegistros">
+                            <i class="fas fa-file-export"></i> Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filtros-container" id="filtrosEfectivo" hidden>
+                    <!-- Filtros se mostrarán aquí -->
+                </div>
+                
+                <table id="tablaEfectivo">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Viajero</th>
+                            <th>Pasaporte</th>
+                            <th>Moneda</th>
+                            <th>Declarado</th>
+                            <th>Encontrado</th>
+                            <th>Diferencia</th>
+                            <th>Agente</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#7890</td>
+                            <td>Ana Silva</td>
+                            <td>GH901234</td>
+                            <td>USD</td>
+                            <td>$5,000</td>
+                            <td>$5,200</td>
+                            <td class="difference-positive">+$200</td>
+                            <td>agentePDI@aduana.cl</td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver" aria-label="Ver registro">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar" aria-label="Editar registro">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#7889</td>
+                            <td>Roberto Díaz</td>
+                            <td>IJ567890</td>
+                            <td>EUR</td>
+                            <td>€10,000</td>
+                            <td>€9,500</td>
+                            <td class="difference-negative">-€500</td>
+                            <td>agenteSAG@aduana.cl</td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver" aria-label="Ver registro">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar" aria-label="Editar registro">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button class="btn btn-secondary" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Página 1 de 4</span>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="modal" id="efectivoModal" hidden>
+        <!-- Contenido del modal -->
+    </div>
+    
+    <script src="js/main.js" defer></script>
+    <script src="js/efectivo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Documentos - Sistema Aduanero</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-border-all"></i> Menú Principal</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active" data-page="dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="solicitudes.html" class="nav-item" data-page="solicitudes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Solicitudes de Viajero</span>
+                </a>
+                
+                <a href="impuestos.html" class="nav-item" data-page="impuestos.html">
+                    <i class="fas fa-calculator"></i>
+                    <span>Impuestos Mercadería</span>
+                </a>
+                
+                <a href="efectivo.html" class="nav-item" data-page="efectivo.html">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Control de Efectivo</span>
+                </a>
+                
+                <a href="notas.html" class="nav-item" data-page="notas.html">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notas</span>
+                </a>
+                
+                <a href="roles.html" class="nav-item" data-page="roles.html">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Roles y Perfiles</span>
+                </a>
+                
+                <a href="reportes.html" class="nav-item" data-page="reportes.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="documentos.html" class="nav-item" data-page="documentos.html">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Documentacion</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1><i class="fas fa-file-upload"></i> Subir Documentos</h1>
+                
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-avatar">A</div>
+                        <span class="user-name">admin@aduana.cl</span>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Contenedor principal -->
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-cloud-upload-alt"></i> Cargar nuevos documentos</h2>
+                    <p>Suba los documentos requeridos para el proceso aduanero</p>
+                </div>
+                
+                <form id="uploadForm" class="form-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="documentType">Tipo de Documento</label>
+                            <select id="documentType" required>
+                                <option value="">Seleccione un tipo...</option>
+                                <option value="factura">Factura Comercial</option>
+                                <option value="bl">Conocimiento de Embarque (BL)</option>
+                                <option value="certificado">Certificado de Origen</option>
+                                <option value="permiso">Permisos Especiales</option>
+                                <option value="otro">Otro Documento</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="documentNumber">Número de Documento (opcional)</label>
+                            <input type="text" id="documentNumber" placeholder="Ej: F001-123456">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expeditionDate">Fecha de Expedición</label>
+                            <input type="date" id="expeditionDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="associatedRequest">Solicitud Asociada (opcional)</label>
+                            <select id="associatedRequest">
+                                <option value="">Ninguna</option>
+                                <option value="req-001">REQ-001 (Juan Pérez)</option>
+                                <option value="req-002">REQ-002 (María González)</option>
+                                <option value="req-003">REQ-003 (Carlos López)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Documento a Subir</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+                            <label for="fileInput" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Seleccione o arrastre el archivo aquí</span>
+                                <div class="file-upload-info" id="fileInfo">No se ha seleccionado ningún archivo</div>
+                            </label>
+                        </div>
+                        <div class="file-requirements">
+                            <p><small>Formatos aceptados: PDF, JPG, PNG, DOC, DOCX (Tamaño máximo: 10MB)</small></p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="documentNotes">Observaciones (opcional)</label>
+                        <textarea id="documentNotes" rows="3" placeholder="Agregue cualquier observación relevante sobre el documento"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Subir Documento
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Listado de documentos subidos -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2 class="table-title"><i class="fas fa-file-alt"></i> Documentos Subidos</h2>
+                    <div class="table-actions">
+                        <button class="btn btn-secondary" id="refreshDocuments">
+                            <i class="fas fa-sync-alt"></i> Actualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <table id="documentsTable">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Tamaño</th>
+                            <th>Fecha Subida</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Factura_F001-123456.pdf</td>
+                            <td>Factura Comercial</td>
+                            <td>2.4 MB</td>
+                            <td>15/06/2023 10:30</td>
+                            <td><span class="status-badge status-completed">Aprobado</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Descargar">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BL_456789.pdf</td>
+                            <td>Conocimiento de Embarque</td>
+                            <td>1.8 MB</td>
+                            <td>14/06/2023 15:45</td>
+                            <td><span class="status-badge status-pending">Pendiente</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Descargar">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Certificado_Origen.docx</td>
+                            <td>Certificado de Origen</td>
+                            <td>350 KB</td>
+                            <td>12/06/2023 09:15</td>
+                            <td><span class="status-badge status-pending" style="background-color: #fff5f5; color: #f56565;">Rechazado</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Descargar">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button class="btn btn-secondary" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Página 1 de 3</span>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal para vista previa de documentos -->
+    <div class="modal" id="documentPreviewModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Vista Previa del Documento</h3>
+                <button class="btn-icon" id="closePreviewModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="previewContent">
+                    <iframe id="documentViewer" style="width:100%; height:500px; border:none;"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="downloadFromPreview">
+                    <i class="fas fa-download"></i> Descargar
+                </button>
+                <button class="btn btn-primary" id="closePreview">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/documentos.js"></script>
+</body>
+</html>

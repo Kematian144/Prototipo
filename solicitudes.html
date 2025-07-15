@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes de Viajero - Aduana Chilena</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-border-all"></i> Menú Principal</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active" data-page="dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="solicitudes.html" class="nav-item" data-page="solicitudes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Solicitudes de Viajero</span>
+                </a>
+                
+                <a href="impuestos.html" class="nav-item" data-page="impuestos.html">
+                    <i class="fas fa-calculator"></i>
+                    <span>Impuestos Mercadería</span>
+                </a>
+                
+                <a href="efectivo.html" class="nav-item" data-page="efectivo.html">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Control de Efectivo</span>
+                </a>
+                
+                <a href="notas.html" class="nav-item" data-page="notas.html">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notas</span>
+                </a>
+                
+                <a href="roles.html" class="nav-item" data-page="roles.html">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Roles y Perfiles</span>
+                </a>
+                
+                <a href="reportes.html" class="nav-item" data-page="reportes.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="documentos.html" class="nav-item" data-page="documentos.html">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Documentacion</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Solicitudes de Viajero</h1>
+                
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-avatar"></div>
+                        <span class="user-name"></span>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Salir
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Filtros y Acciones -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2 class="table-title">Listado de Solicitudes</h2>
+                    <div class="table-actions">
+                        <button class="btn btn-primary" id="nuevaSolicitud">
+                            <i class="fas fa-plus"></i>
+                            Nueva Solicitud
+                        </button>
+                        <button class="btn btn-secondary" id="filtrarSolicitudes">
+                            <i class="fas fa-filter"></i>
+                            Filtrar
+                        </button>
+                        <button class="btn btn-secondary" id="exportarSolicitudes">
+                            <i class="fas fa-file-export"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filtros-container" id="filtrosContainer" style="display: none;">
+                    <div class="filtros-row">
+                        <div class="form-group">
+                            <label for="filtroFecha">Fecha</label>
+                            <input type="date" id="filtroFecha">
+                        </div>
+                        <div class="form-group">
+                            <label for="filtroEstado">Estado</label>
+                            <select id="filtroEstado">
+                                <option value="">Todos</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="completado">Completado</option>
+                                <option value="en-proceso">En Proceso</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filtroUbicacion">Ubicación</label>
+                            <select id="filtroUbicacion">
+                                <option value="">Todas</option>
+                                <option value="aereo">Terminal Aéreo</option>
+                                <option value="terrestre">Terminal Terrestre</option>
+                                <option value="maritimo">Terminal Marítimo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filtros-actions">
+                        <button class="btn btn-primary" id="aplicarFiltros">
+                            <i class="fas fa-check"></i>
+                            Aplicar Filtros
+                        </button>
+                        <button class="btn btn-secondary" id="limpiarFiltros">
+                            <i class="fas fa-broom"></i>
+                            Limpiar
+                        </button>
+                    </div>
+                </div>
+                
+                <table id="tablaSolicitudes">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Viajero</th>
+                            <th>Pasaporte</th>
+                            <th>Hora Visita</th>
+                            <th>Ubicación</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#2456</td>
+                            <td>Juan Pérez</td>
+                            <td>AB123456</td>
+                            <td>15:30</td>
+                            <td>Puesto 3 - Terminal Aéreo</td>
+                            <td><span class="status-badge status-pending">Pendiente</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#2455</td>
+                            <td>María González</td>
+                            <td>CD789012</td>
+                            <td>14:15</td>
+                            <td>Puesto 1 - Terminal Terrestre</td>
+                            <td><span class="status-badge status-completed">Completado</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#2454</td>
+                            <td>Carlos López</td>
+                            <td>EF345678</td>
+                            <td>13:45</td>
+                            <td>Puesto 5 - Terminal Aéreo</td>
+                            <td><span class="status-badge status-processing">En Proceso</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button class="btn btn-secondary" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Página 1 de 5</span>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sección de Declaraciones Juradas Actualizada -->
+            <div class="table-container" style="margin-top: 40px;">
+                <div class="table-header">
+                    <h2 class="table-title">Listado de Declaraciones Juradas</h2>
+                    <div class="table-actions">
+                        <button class="btn btn-primary" id="nuevaDeclaracionBtn">
+                            <i class="fas fa-plus"></i>
+                            Nueva Declaración
+                        </button>
+                        <button class="btn btn-secondary" id="filtrarDeclaraciones">
+                            <i class="fas fa-filter"></i>
+                            Filtrar
+                        </button>
+                        <button class="btn btn-secondary" id="exportarDeclaraciones">
+                            <i class="fas fa-file-export"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filtros-container" id="filtrosDeclaracionesContainer" style="display: none;">
+                    <div class="filtros-row">
+                        <div class="form-group">
+                            <label for="filtroFechaDeclaracion">Fecha</label>
+                            <input type="date" id="filtroFechaDeclaracion">
+                        </div>
+                        <div class="form-group">
+                            <label for="filtroEstadoDeclaracion">Estado</label>
+                            <select id="filtroEstadoDeclaracion">
+                                <option value="">Todos</option>
+                                <option value="rechazado">Rechazado</option>
+                                <option value="en-proceso">En Proceso</option>
+                                <option value="aprobada">Aprobada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filtroTipoDeclaracion">Tipo</label>
+                            <select id="filtroTipoDeclaracion">
+                                <option value="">Todos</option>
+                                <option value="mercancias">Mercancías</option>
+                                <option value="efectivo">Efectivo</option>
+                                <option value="especies">Especies Valoradas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filtros-actions">
+                        <button class="btn btn-primary" id="aplicarFiltrosDeclaraciones">
+                            <i class="fas fa-check"></i>
+                            Aplicar Filtros
+                        </button>
+                        <button class="btn btn-secondary" id="limpiarFiltrosDeclaraciones">
+                            <i class="fas fa-broom"></i>
+                            Limpiar
+                        </button>
+                    </div>
+                </div>
+                
+                <table id="tablaDeclaraciones">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Declarante</th>
+                            <th>Documento</th>
+                            <th>Fecha/Hora</th>
+                            <th>Notas/Detalles</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#3456</td>
+                            <td>Ana Martínez</td>
+                            <td>GH901234</td>
+                            <td>16/05/2023 16:20</td>
+                            <td>Declaración de mercancías generales</td>
+                            <td><span class="status-badge status-pending">Rechazado</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#3455</td>
+                            <td>Pedro Sánchez</td>
+                            <td>IJ567890</td>
+                            <td>16/05/2023 15:10</td>
+                            <td>Declaración de efectivo USD 10,000</td>
+                            <td><span class="status-badge status-completed">Aprobada</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#3454</td>
+                            <td>Laura Ramírez</td>
+                            <td>KL123456</td>
+                            <td>16/05/2023 14:30</td>
+                            <td>Declaración de equipos electrónicos</td>
+                            <td><span class="status-badge status-processing">En Proceso</span></td>
+                            <td>
+                                <button class="btn-icon btn-view" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button class="btn btn-secondary" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Página 1 de 3</span>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal para nueva/editar solicitud -->
+    <div class="modal" id="solicitudModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Nueva Solicitud de Viajero</h3>
+                <button class="btn-icon btn-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="solicitudForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombreViajero">Nombre Completo</label>
+                            <input type="text" id="nombreViajero" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pasaporte">N° Pasaporte</label>
+                            <input type="text" id="pasaporte" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fechaVisita">Fecha Visita</label>
+                            <input type="date" id="fechaVisita" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="horaVisita">Hora Visita</label>
+                            <input type="time" id="horaVisita" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ubicacion">Ubicación</label>
+                            <select id="ubicacion" required>
+                                <option value="">Seleccione...</option>
+                                <option value="Puesto 1 - Terminal Terrestre">Puesto 1 - Terminal Terrestre</option>
+                                <option value="Puesto 2 - Terminal Terrestre">Puesto 2 - Terminal Terrestre</option>
+                                <option value="Puesto 3 - Terminal Aéreo">Puesto 3 - Terminal Aéreo</option>
+                                <option value="Puesto 4 - Terminal Aéreo">Puesto 4 - Terminal Aéreo</option>
+                                <option value="Puesto 5 - Terminal Aéreo">Puesto 5 - Terminal Aéreo</option>
+                                <option value="Puesto 1 - Terminal Marítimo">Puesto 1 - Terminal Marítimo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select id="estado" required>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en-proceso">En Proceso</option>
+                                <option value="completado">Completado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="observaciones">Observaciones</label>
+                        <textarea id="observaciones" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelarSolicitud">
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" id="guardarSolicitud">
+                    Guardar Solicitud
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para nueva/editar declaración jurada (actualizado) -->
+    <div class="modal" id="declaracionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitleDeclaracion">Nueva Declaración Jurada</h3>
+                <button class="btn-icon btn-close" id="closeModalDeclaracion">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="declaracionForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombreDeclarante">Nombre Completo</label>
+                            <input type="text" id="nombreDeclarante" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="documento">N° Documento</label>
+                            <input type="text" id="documento" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fechaDeclaracion">Fecha Declaración</label>
+                            <input type="date" id="fechaDeclaracion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="horaDeclaracion">Hora Registro</label>
+                            <input type="time" id="horaDeclaracion" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tipoDeclaracion">Tipo Declaración</label>
+                            <select id="tipoDeclaracion" required>
+                                <option value="">Seleccione...</option>
+                                <option value="mercancias">Mercancías</option>
+                                <option value="efectivo">Efectivo</option>
+                                <option value="especies">Especies Valoradas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estadoDeclaracion">Estado</label>
+                            <select id="estadoDeclaracion" required>
+                                <option value="en-proceso">En Proceso</option>
+                                <option value="rechazado">Rechazado</option>
+                                <option value="aprobada">Aprobada</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="detalleDeclaracion">Detalle de la Declaración</label>
+                        <textarea id="detalleDeclaracion" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelarDeclaracion">
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" id="guardarDeclaracion">
+                    Guardar Declaración
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/solicitudes.js"></script>
+    <script src="js/declaraciones.js"></script>
+</body>
+</html>
